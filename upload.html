@@ -1,0 +1,110 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body> 
+<h3>Upload new Video</h3>
+
+  <div class="input-group">
+      <span class="input-group-addon">Enter file path </span>
+      <input id="path" type="text" class="form-control" name="msg" placeholder="Additional Info">
+    </div>
+
+    <br>    
+    <div class="input-group">
+      <span class="input-group-addon">Enter file name</span>
+      <input id="name" type="text" class="form-control" name="msg" placeholder="Additional Info">
+    </div>
+    <br>
+    <button id="submit">Upload</button>
+	<!--
+	File path :<input type="text" id="path" placeholder="Enter file path"><br>
+  File Name :<input type="text" id="name" placeholder="Enter file name"><br>
+  <button id="submit">Upload</button>
+
+  <form>
+    <br>
+    <div class="input-group">
+      <span class="input-group-addon">Enter file path </span>
+      <input id="path" type="text" class="form-control" name="msg" placeholder="Additional Info">
+    </div>
+    
+    <div class="input-group">
+      <span class="input-group-addon">Enter file name</span>
+      <input id="name" type="text" class="form-control" name="msg" placeholder="Additional Info">
+    </div>
+  </form>
+  <br>
+-->
+
+<!-- BUTTon-->
+
+<!-- BOOT-->
+
+
+
+<!-- BOOT-->
+
+<!-- BUTTon-->
+</body> 
+<script type="text/javascript">
+	$(document).ready(function(){
+    $("a").click(function(e) {
+        e.preventDefault();
+        console.log("presedd"+$(this).attr("href"));
+        $("#someFrame").attr("src", $(this).attr("href"));
+    })
+
+
+    
+     $("#buttons").bind('click',function(){
+        var play=event.target.value;
+        var new_link="https://s3.eu-central-1.amazonaws.com/testabhijeetcoder/"+play;
+        $("#someFrame").attr("src",new_link);
+  })
+
+
+    $('#submit').on('click',function(){
+    	var path=$('#path').val();
+    	var name=$('#name').val();
+    	$('#path').val(' ');
+    	$('#name').val(' ');
+    	console.log("path is"+path);
+
+    	//AJAX
+    	 $.ajax({
+            url:"http://localhost:8080/upload",
+            data:{'link':path,'name':name}, //Reference to count_current_record
+            success:function(result){
+                
+            }
+        });
+    	//AJAX
+    });
+
+     $.ajax({
+            url:"http://localhost:8080/list", //Reference to count_current_record
+            success:function(result){
+                
+                var obj=JSON.parse(result);
+                
+                
+                //console.log(obj[0]['val'].split('/')[4])
+                for(var i=0;i<obj.length;i++){
+
+				      var $something= $('<input/>').attr({ type: 'button', value:obj[i]['val'].split('/')[4],id:i,class:"btn btn-primary"});
+              var br='<br>';
+                      $("#buttons").append(br);
+					$("#buttons").append($something);
+					
+					
+                }
+                
+            }
+        });
+});
+</script>
+</html>
