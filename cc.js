@@ -7,7 +7,7 @@ var router = express.Router();
 var url = require("url");
 
 // For dev purposes only
-AWS.config.update({ accessKeyId: 'AKIAIZ26MXVD5SHOLT5Q', secretAccessKey: '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' });
+AWS.config.update({ accessKeyId: <aws-access-key-id>, secretAccessKey: <aws-secret-key-id> });
 var s3 = new AWS.S3();
 // Read in the file, convert it to base64, store to S3
 
